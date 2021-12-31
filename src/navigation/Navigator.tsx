@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Home from "../screens/Home";
 import Quizz from "../screens/Quizz";
+import Result from "../screens/Result";
 
 const MainStack = createStackNavigator();
 
@@ -15,7 +16,14 @@ const Main = () => {
       }}
     >
       <MainStack.Screen name="Home" component={Home} />
-      <MainStack.Screen name="Quizz" component={Quizz} />
+      <MainStack.Screen
+        name="Quizz"
+        component={Quizz}
+        options={({ route, navigation }) => ({
+          title: route.params.category,
+        })}
+      />
+      <MainStack.Screen name="Result" component={Result} />
     </MainStack.Navigator>
   );
 };

@@ -24,7 +24,11 @@ export default function ({ navigation }: any) {
           renderItem={({ item }) => (
             <Button
               onPress={() => {
-                navigation.navigate("Quizz", { category: item , limit: 10 });
+                navigation.push("Quizz", {
+                  category: item,
+                  limit: 3,
+                  difficulty: "easy",
+                });
               }}
               borderBottomWidth="1"
               _dark={{
