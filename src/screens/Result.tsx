@@ -1,15 +1,16 @@
-import React, { EffectCallback, useEffect } from "react";
-import { Button, View, Center, Text } from "native-base";
+import React, { useEffect } from "react";
+import { Button, View, Center, Text, CircularProgress } from "native-base";
+import { fontSize } from "styled-system";
 
 export default function ({ navigation, route }: any) {
-  useEffect(
-    () =>
-      navigation.addListener("beforeRemove", (e) => {
-        // Prevent default behavior of leaving the screen
-        // e.preventDefault();
-      }),
-    [navigation]
-  );
+  //useEffect(
+  //  () =>
+  //    navigation.addListener("beforeRemove", (e) => {
+  //      // Prevent default behavior of leaving the screen
+  //      // e.preventDefault();
+  //    }),
+  //    [navigation]
+  //    );
 
   const goHome = () => {
     navigation.navigate("Home");
@@ -18,10 +19,16 @@ export default function ({ navigation, route }: any) {
   return (
     <Center flex={1} px="3">
       <View>
-        <Text>
-          {" "}
-          Reults is {route.params.score} / {route.params.length}
-        </Text>
+        <CircularProgress
+          mt={8}
+          value={(route.params.score / route.params.length) * 100}
+          size={150}
+          color="red.900"
+          thickness={10}
+          _text={{ color: "green.900", fontSize: "30px"}}
+        >
+          {`${route.params.score} / ${route.params.length}`}
+        </CircularProgress>
         <Button
           onPress={goHome}
           borderBottomWidth="1"
