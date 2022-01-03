@@ -20,7 +20,7 @@ const Main = () => {
         name="Quizz"
         component={Quizz}
         options={({ route, navigation }) => ({
-          title: route.params.category,
+          title: route.params.name,
         })}
       />
       <MainStack.Screen name="Result" component={Result} />

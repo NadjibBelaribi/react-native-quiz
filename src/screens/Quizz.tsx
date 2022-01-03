@@ -11,6 +11,29 @@ import {
   HStack,
 } from "native-base";
 
+const QUESTIONS = {
+  response_code: 0,
+  results: [
+    {
+      category: "Art",
+      type: "multiple",
+      difficulty: "hard",
+      question:
+        "What year did Albrecht D&uuml;rer create the painting &quot;The Young Hare&quot;?",
+      correct_answer: "1502",
+      incorrect_answers: ["1702", "1402", "1602"],
+    },
+    {
+      category: "Art",
+      type: "multiple",
+      difficulty: "easy",
+      question: "Who painted The Starry Night?",
+      correct_answer: "Vincent van Gogh",
+      incorrect_answers: ["Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
+    },
+  ],
+};
+
 export default function ({ navigation, route }: any) {
   const [questionsLength, setQuestionsLength] = useState(route.params.limit);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -19,17 +42,24 @@ export default function ({ navigation, route }: any) {
   const [correctOption, setCorrectOption] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
   const [disableSelection, setDisableSelection] = useState(false);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<Object[]>([]);
   const [isUp, setisUp] = useState(false);
 
   const getQuestions = async () => {
     try {
-      const response = await fetch(
-        `https://quizapi.io/api/v1/questions?apiKey=ttCsPaY6hL6nkzDOj5RmNbXD4s3CKPdWGpwLzmya&category=${route.params.category}&difficulty=${route.params.difficulty}&limit=${route.params.limit}`
-      );
-      const json = await response.json();
-      setQuestions(json);
-      setQuestionsLength(json.length);
+      let url = `https://opentdb.com/api.php?amount=${route.params.limit}&category=${route.params.category}&difficulty=${route.params.difficulty}&type=multiple`;
+      console.log(url);
+      const response = await fetch(url);
+      let quests = await response.json();
+      quests = quests.results;
+      quests.forEach((element: any) => {
+        element.incorrect_answers = element.correct_answer
+          .split("  ")
+          .concat(element.incorrect_answers)
+          .sort(() => 0.5 - Math.random());
+      });
+      setQuestions(quests);
+      setQuestionsLength(quests.length);
       setisUp(true);
     } catch (error) {
       console.error(error);
@@ -54,20 +84,12 @@ export default function ({ navigation, route }: any) {
   };
 
   const validateAnswer = (option: any) => {
-    let index = Object.values(
-      questions[currentQuestionIndex].correct_answers
-    ).indexOf("true");
-    if (index != -1) {
-      let correctAnswer: any = Object.values(
-        questions[currentQuestionIndex].answers
-      )[index];
-      setCorrectOption(correctAnswer);
-      setDisableSelection(true);
-      setSelectedOption(option);
+    setCorrectOption(questions[currentQuestionIndex].correct_answer);
+    setDisableSelection(true);
+    setSelectedOption(option);
 
-      if (option == correctAnswer) {
-        setScore(score + 1);
-      }
+    if (option == questions[currentQuestionIndex].correct_answer) {
+      setScore(score + 1);
     }
     setShowNextQuestion(true);
   };
@@ -89,9 +111,7 @@ export default function ({ navigation, route }: any) {
         <Center flex={1} px="3">
           <Box w="90%">
             <FlatList
-              data={Object.values(
-                questions[currentQuestionIndex].answers
-              ).filter((a) => a != null)}
+              data={questions[currentQuestionIndex].incorrect_answers}
               renderItem={({ item }) => (
                 <Button
                   onPress={() => validateAnswer(item)}
