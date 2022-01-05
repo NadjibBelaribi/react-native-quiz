@@ -10,29 +10,17 @@ import {
   Button,
   HStack,
 } from "native-base";
+import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
+import { Animated } from "react-native";
 
-const QUESTIONS = {
-  response_code: 0,
-  results: [
-    {
-      category: "Art",
-      type: "multiple",
-      difficulty: "hard",
-      question:
-        "What year did Albrecht D&uuml;rer create the painting &quot;The Young Hare&quot;?",
-      correct_answer: "1502",
-      incorrect_answers: ["1702", "1402", "1602"],
-    },
-    {
-      category: "Art",
-      type: "multiple",
-      difficulty: "easy",
-      question: "Who painted The Starry Night?",
-      correct_answer: "Vincent van Gogh",
-      incorrect_answers: ["Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
-    },
-  ],
-};
+function escapeHtml(text: String) {
+  return text
+    .replace(/&amp;/gi, "&")
+    .replace(/&gt;/gi, ">")
+    .replace(/&lt;/gi, "<")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#039;/gi, "'");
+}
 
 export default function ({ navigation, route }: any) {
   const [questionsLength, setQuestionsLength] = useState(route.params.limit);
@@ -98,8 +86,24 @@ export default function ({ navigation, route }: any) {
     return (
       <HStack marginTop="20px">
         <Center flex={1} px="3">
-          <Heading fontSize="sm" w="80%">
-            {questions[currentQuestionIndex].question}
+          <CountdownCircleTimer
+            isPlaying
+            size={100}
+            duration={15}
+            colors={[
+              ["#004777", 0.4],
+              ["#F7B801", 0.4],
+              ["#A30000", 0.2],
+            ]}
+          >
+            {({ remainingTime, animatedColor }) => (
+              <Animated.Text style={{ color: animatedColor }}>
+                {remainingTime}
+              </Animated.Text>
+            )}
+          </CountdownCircleTimer>
+          <Heading fontSize="md" w="80%" marginTop="20px">
+            {escapeHtml(questions[currentQuestionIndex].question)}
           </Heading>
         </Center>
       </HStack>
@@ -133,7 +137,7 @@ export default function ({ navigation, route }: any) {
                   pr="5"
                   py="2"
                 >
-                  {item}
+                  {escapeHtml(item)}
                 </Button>
               )}
               keyExtractor={(item) => item}
@@ -144,12 +148,13 @@ export default function ({ navigation, route }: any) {
     );
   };
   const renderNextQuestion = () => {
-    if (showNextQuestion)
-      return (
+    return (
+      <>
         <HStack>
           <Center flex={1} px="3">
             <Button
               onPress={handleNext}
+              isDisabled={!showNextQuestion}
               borderBottomWidth="1"
               _dark={{
                 borderColor: "red.600",
@@ -164,17 +169,25 @@ export default function ({ navigation, route }: any) {
             </Button>
           </Center>
         </HStack>
-      );
-    return null;
+        <Box marginTop="100px">
+          <Text
+            bold
+            fontSize="md"
+            marginTop="5px"
+            textAlign="center"
+          >{`${currentQuestionIndex} / ${questionsLength}`}</Text>
+          <Progress
+            value={(currentQuestionIndex * 100) / questionsLength}
+            mx="4"
+            marginTop="20px"
+          />
+        </Box>
+      </>
+    );
   };
 
   return (
     <View>
-      <Progress
-        value={(currentQuestionIndex * 100) / questionsLength}
-        mx="4"
-        marginTop="20px"
-      />
       {isUp && renderQuestion()}
       {isUp && renderOptions()}
       {isUp && renderNextQuestion()}

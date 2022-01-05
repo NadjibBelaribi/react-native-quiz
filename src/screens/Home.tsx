@@ -25,7 +25,7 @@ const Categories = {
   "Board Games": "16",
   "Science & Nature": "17",
   Computers: "18",
-  Mathematics: "19",
+  Mathematic: "19",
   Mythology: "20",
   Sports: "21",
   Geography: "22",
@@ -39,7 +39,6 @@ const Categories = {
   Gadgets: "30",
   "Japanese Anime & Manga": "31",
   Cartoon: "32",
-  "Any Category": "any",
 };
 
 export default function ({ navigation }: any) {
@@ -93,7 +92,7 @@ export default function ({ navigation }: any) {
               onPress={() =>
                 navigation.push("Quizz", {
                   category: Categories[item],
-                  name : item,
+                  name: item,
                   limit: amount,
                   difficulty: level,
                 })
@@ -102,6 +101,7 @@ export default function ({ navigation }: any) {
               {({ isHovered, isFocused, isPressed }) => {
                 return (
                   <Box
+                    alignItems="center"
                     bg={
                       isPressed
                         ? "gray.400"
@@ -128,11 +128,15 @@ export default function ({ navigation }: any) {
                       }}
                       alt="Category"
                     />
-                    <Center>
-                      <Text bold marginTop="10px" pl="4" pr="5" py="2">
-                        {item}
-                      </Text>
-                    </Center>
+                    <Text
+                      bold
+                      fontSize="xs"
+                      marginTop="15px"
+                      width="80px"
+                      textAlign="center"
+                    >
+                      {item}
+                    </Text>
                   </Box>
                 );
               }}
