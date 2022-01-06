@@ -12,6 +12,7 @@ import {
 } from "native-base";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { Animated } from "react-native";
+import { fontSize } from "styled-system";
 
 function escapeHtml(text: String) {
   return text
@@ -32,6 +33,8 @@ export default function ({ navigation, route }: any) {
   const [disableSelection, setDisableSelection] = useState(false);
   const [questions, setQuestions] = useState<Object[]>([]);
   const [isUp, setisUp] = useState(false);
+  const [expireTimer, setExpireTimer] = useState(false);
+  const [key, setKey] = useState(0);
 
   const getQuestions = async () => {
     try {
@@ -68,10 +71,13 @@ export default function ({ navigation, route }: any) {
       setCorrectOption("");
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setShowNextQuestion(false);
+      setKey((prevKey) => prevKey + 1);
+      setExpireTimer(false);
     }
   };
 
   const validateAnswer = (option: any) => {
+    setExpireTimer(true);
     setCorrectOption(questions[currentQuestionIndex].correct_answer);
     setDisableSelection(true);
     setSelectedOption(option);
@@ -87,22 +93,29 @@ export default function ({ navigation, route }: any) {
       <HStack marginTop="20px">
         <Center flex={1} px="3">
           <CountdownCircleTimer
-            isPlaying
+            isPlaying={!expireTimer}
+            onComplete={() => {
+              setExpireTimer(true);
+              handleNext();
+              return [true, 1000];
+            }}
             size={100}
+            key={key}
             duration={15}
-            colors={[
-              ["#004777", 0.4],
-              ["#F7B801", 0.4],
-              ["#A30000", 0.2],
-            ]}
+            colors="#A30000"
           >
             {({ remainingTime, animatedColor }) => (
-              <Animated.Text style={{ color: animatedColor }}>
+              <Animated.Text style={{ color: animatedColor, fontSize: "15px" }}>
                 {remainingTime}
               </Animated.Text>
             )}
           </CountdownCircleTimer>
-          <Heading fontSize="md" w="80%" marginTop="20px">
+          <Heading
+            fontSize="md"
+            w="80%"
+            marginTop="20px"
+            justifyContent="center"
+          >
             {escapeHtml(questions[currentQuestionIndex].question)}
           </Heading>
         </Center>
@@ -119,7 +132,7 @@ export default function ({ navigation, route }: any) {
               renderItem={({ item }) => (
                 <Button
                   onPress={() => validateAnswer(item)}
-                  isDisabled={disableSelection}
+                  isDisabled={disableSelection || expireTimer}
                   borderBottomWidth="1"
                   marginBottom="10px"
                   _dark={{
