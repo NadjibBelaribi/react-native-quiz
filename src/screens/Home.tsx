@@ -14,16 +14,32 @@ import {
   CheckIcon,
 } from "native-base";
 
-const Categories = [
-  "Linux",
-  "Bash",
-  "General",
-  "Docker",
-  "SQL",
-  "CMS",
-  "Code",
-  "DevOps",
-];
+const Categories = {
+  "General Knowledge": "9",
+  Books: "10",
+  Film: "11",
+  Music: "12",
+  Theatres: "13",
+  Television: "14",
+  "Video Games": "15",
+  "Board Games": "16",
+  "Science & Nature": "17",
+  Computers: "18",
+  Mathematic: "19",
+  Mythology: "20",
+  Sports: "21",
+  Geography: "22",
+  History: "23",
+  Politics: "24",
+  Art: "25",
+  Celebrities: "26",
+  Animals: "27",
+  Vehicles: "28",
+  Comics: "29",
+  Gadgets: "30",
+  "Japanese Anime & Manga": "31",
+  Cartoon: "32",
+};
 
 export default function ({ navigation }: any) {
   const [level, setLevel] = useState("easy");
@@ -69,19 +85,23 @@ export default function ({ navigation }: any) {
       <Divider></Divider>
       <Center>
         <FlatList
-          data={Categories}
+          data={Object.keys(Categories)}
           numColumns={3}
           renderItem={({ item }) => (
             <Pressable
-              onPress={ () => navigation.push("Quizz", {
-                category: item,
-                limit: amount,
-                difficulty: level,
-              })}
+              onPress={() =>
+                navigation.push("Quizz", {
+                  category: Categories[item],
+                  name: item,
+                  limit: amount,
+                  difficulty: level,
+                })
+              }
             >
               {({ isHovered, isFocused, isPressed }) => {
                 return (
                   <Box
+                    alignItems="center"
                     bg={
                       isPressed
                         ? "gray.400"
@@ -108,11 +128,15 @@ export default function ({ navigation }: any) {
                       }}
                       alt="Category"
                     />
-                    <Center>
-                      <Text bold marginTop="10px" pl="4" pr="5" py="2">
-                        {item}
-                      </Text>
-                    </Center>
+                    <Text
+                      bold
+                      fontSize="xs"
+                      marginTop="15px"
+                      width="80px"
+                      textAlign="center"
+                    >
+                      {item}
+                    </Text>
                   </Box>
                 );
               }}
