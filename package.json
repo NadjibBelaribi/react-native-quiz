@@ -18,6 +18,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@mdi/js": "^6.5.95",
+    "@mdi/react": "^1.5.0",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
     "expo": "~42.0.0",

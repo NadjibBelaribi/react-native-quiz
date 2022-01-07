@@ -12,7 +12,6 @@ import {
 } from "native-base";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { Animated } from "react-native";
-import { fontSize } from "styled-system";
 
 function escapeHtml(text: String) {
   return text
@@ -99,13 +98,13 @@ export default function ({ navigation, route }: any) {
               handleNext();
               return [true, 1000];
             }}
-            size={100}
+            size={80}
             key={key}
-            duration={15}
-            colors="#A30000"
+            duration={30}
+            colors="#ef4444"
           >
             {({ remainingTime, animatedColor }) => (
-              <Animated.Text style={{ color: animatedColor, fontSize: "15px" }}>
+              <Animated.Text style={{ color: animatedColor }}>
                 {remainingTime}
               </Animated.Text>
             )}
@@ -182,7 +181,7 @@ export default function ({ navigation, route }: any) {
             </Button>
           </Center>
         </HStack>
-        <Box marginTop="100px">
+        <Box marginTop="10px">
           <Text
             bold
             fontSize="md"
@@ -192,6 +191,7 @@ export default function ({ navigation, route }: any) {
           <Progress
             value={(currentQuestionIndex * 100) / questionsLength}
             mx="4"
+            size="md"
             marginTop="20px"
           />
         </Box>

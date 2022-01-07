@@ -13,33 +13,8 @@ import {
   HStack,
   CheckIcon,
 } from "native-base";
-
-const Categories = {
-  "General Knowledge": "9",
-  Books: "10",
-  Film: "11",
-  Music: "12",
-  Theatres: "13",
-  Television: "14",
-  "Video Games": "15",
-  "Board Games": "16",
-  "Science & Nature": "17",
-  Computers: "18",
-  Mathematic: "19",
-  Mythology: "20",
-  Sports: "21",
-  Geography: "22",
-  History: "23",
-  Politics: "24",
-  Art: "25",
-  Celebrities: "26",
-  Animals: "27",
-  Vehicles: "28",
-  Comics: "29",
-  Gadgets: "30",
-  "Japanese Anime & Manga": "31",
-  Cartoon: "32",
-};
+import Icon from "@mdi/react";
+import { Categories } from "../utils.js";
 
 export default function ({ navigation }: any) {
   const [level, setLevel] = useState("easy");
@@ -85,14 +60,14 @@ export default function ({ navigation }: any) {
       <Divider></Divider>
       <Center>
         <FlatList
-          data={Object.keys(Categories)}
+          data={Categories}
           numColumns={3}
           renderItem={({ item }) => (
             <Pressable
               onPress={() =>
                 navigation.push("Quizz", {
-                  category: Categories[item],
-                  name: item,
+                  category: item.id,
+                  name: item.name,
                   limit: amount,
                   difficulty: level,
                 })
@@ -119,15 +94,8 @@ export default function ({ navigation }: any) {
                       ],
                     }}
                   >
-                    <Image
-                      size={70}
-                      resizeMode={"contain"}
-                      borderRadius={100}
-                      source={{
-                        uri: "https://wallpaperaccess.com/full/317501.jpg",
-                      }}
-                      alt="Category"
-                    />
+                    <Icon path={item.icone} title="Dog" color="#dd0" size={2} />
+
                     <Text
                       bold
                       fontSize="xs"
@@ -135,7 +103,7 @@ export default function ({ navigation }: any) {
                       width="80px"
                       textAlign="center"
                     >
-                      {item}
+                      {item.name}
                     </Text>
                   </Box>
                 );
