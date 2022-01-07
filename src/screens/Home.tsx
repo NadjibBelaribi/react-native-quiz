@@ -13,34 +13,60 @@ import {
   HStack,
   CheckIcon,
 } from "native-base";
+import Icon from "@mdi/react";
+import {
+  mdiBookOpenPageVariant,
+  mdiSchool,
+  mdiFilm,
+  mdiMusicNoteEighth,
+  mdiTheater,
+  mdiTelevision,
+  mdiControllerClassic,
+  mdiCrowd,
+  mdiNaturePeople,
+  mdiDesktopClassic,
+  mdiMathCos,
+  mdiUfo,
+  mdiBasketball,
+  mdiEarth,
+  mdiHistory,
+  mdiGreenhouse,
+  mdiBrush,
+  mdiAccountStar,
+  mdiPaw,
+  mdiIdeogramCjk,
+  mdiCarEstate,
+  mdiRedhat,
+  mdiHammerScrewdriver,
+  mdiPanda,
+} from "@mdi/js";
 
-const Categories = {
-  "General Knowledge": "9",
-  Books: "10",
-  Film: "11",
-  Music: "12",
-  Theatres: "13",
-  Television: "14",
-  "Video Games": "15",
-  "Board Games": "16",
-  "Science & Nature": "17",
-  Computers: "18",
-  Mathematic: "19",
-  Mythology: "20",
-  Sports: "21",
-  Geography: "22",
-  History: "23",
-  Politics: "24",
-  Art: "25",
-  Celebrities: "26",
-  Animals: "27",
-  Vehicles: "28",
-  Comics: "29",
-  Gadgets: "30",
-  "Japanese Anime & Manga": "31",
-  Cartoon: "32",
-};
-
+const Categories = [
+  { name: "General Knowledge", id: "9", icone: mdiSchool },
+  { name: "Books", id: "10", icone: mdiBookOpenPageVariant },
+  { name: "Film", id: "11", icone: mdiFilm },
+  { name: "Music", id: "12", icone: mdiMusicNoteEighth },
+  { name: "Theatres", id: "13", icone: mdiTheater },
+  { name: "Television", id: "14", icone: mdiTelevision },
+  { name: "Video Games", id: "15", icone: mdiControllerClassic },
+  { name: "Board Games", id: "16", icone: mdiCrowd },
+  { name: "Science & Nature", id: "17", icone: mdiNaturePeople },
+  { name: "Computers", id: "18", icone: mdiDesktopClassic },
+  { name: "Mathematic", id: "19", icone: mdiMathCos },
+  { name: "Mythology", id: "20", icone: mdiUfo },
+  { name: "Sports", id: "21", icone: mdiBasketball },
+  { name: "Geography", id: "22", icone: mdiEarth },
+  { name: "History", id: "23", icone: mdiHistory },
+  { name: "Politics", id: "24", icone: mdiGreenhouse },
+  { name: "Art", id: "25", icone: mdiBrush },
+  { name: "Celebrities", id: "26", icone: mdiAccountStar },
+  { name: "Animals", id: "27", icone: mdiPaw },
+  { name: "Japanese Anime & Manga", id: "31", icone: mdiIdeogramCjk },
+  { name: "Vehicles", id: "28", icone: mdiCarEstate },
+  { name: "Comics", id: "29", icone: mdiRedhat },
+  { name: "Gadgets", id: "30", icone: mdiHammerScrewdriver },
+  { name: "Cartoon", id: "32", icone: mdiPanda },
+];
 export default function ({ navigation }: any) {
   const [level, setLevel] = useState("easy");
   const [amount, setAmount] = useState(5);
@@ -85,14 +111,14 @@ export default function ({ navigation }: any) {
       <Divider></Divider>
       <Center>
         <FlatList
-          data={Object.keys(Categories)}
+          data={Categories}
           numColumns={3}
           renderItem={({ item }) => (
             <Pressable
               onPress={() =>
                 navigation.push("Quizz", {
-                  category: Categories[item],
-                  name: item,
+                  category: item.id,
+                  name: item.name,
                   limit: amount,
                   difficulty: level,
                 })
@@ -119,15 +145,8 @@ export default function ({ navigation }: any) {
                       ],
                     }}
                   >
-                    <Image
-                      size={70}
-                      resizeMode={"contain"}
-                      borderRadius={100}
-                      source={{
-                        uri: "https://wallpaperaccess.com/full/317501.jpg",
-                      }}
-                      alt="Category"
-                    />
+                    <Icon path={item.icone} title="Dog" color="#dd0" size={2} />
+
                     <Text
                       bold
                       fontSize="xs"
@@ -135,7 +154,7 @@ export default function ({ navigation }: any) {
                       width="80px"
                       textAlign="center"
                     >
-                      {item}
+                      {item.name}
                     </Text>
                   </Box>
                 );
