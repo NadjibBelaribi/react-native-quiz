@@ -13,7 +13,7 @@ export default function ({ navigation, route }: any) {
   //    );
 
   const goHome = () => {
-    navigation.navigate("Home");
+    navigation.navigate("Welcome");
   };
 
   return (
