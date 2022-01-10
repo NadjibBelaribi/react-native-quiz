@@ -100,7 +100,7 @@ export default function ({ navigation, route }: any) {
             }}
             size={80}
             key={key}
-            duration={15}
+            duration={30}
             colors="#ef4444"
           >
             {({ remainingTime, animatedColor }) => (
