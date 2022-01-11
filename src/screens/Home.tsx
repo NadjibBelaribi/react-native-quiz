@@ -12,8 +12,9 @@ import {
   Select,
   HStack,
   CheckIcon,
+  Icon,
 } from "native-base";
-import Icon from "@mdi/react";
+
 import {
   mdiBookOpenPageVariant,
   mdiSchool,
@@ -41,8 +42,10 @@ import {
   mdiPanda,
 } from "@mdi/js";
 
+import { SimpleLineIcons } from "@expo/vector-icons";
+
 const Categories = [
-  { name: "General Knowledge", id: "9", icone: mdiSchool },
+  { name: "General Knowledge", id: "9", icone: mdiFilm },
   { name: "Books", id: "10", icone: mdiBookOpenPageVariant },
   { name: "Film", id: "11", icone: mdiFilm },
   { name: "Music", id: "12", icone: mdiMusicNoteEighth },
@@ -68,7 +71,7 @@ const Categories = [
   { name: "Cartoon", id: "32", icone: mdiPanda },
 ];
 
-export default function Home ({ navigation }: any) {
+export default function Home({ navigation }: any) {
   const [level, setLevel] = useState("easy");
   const [amount, setAmount] = useState(5);
   return (
@@ -110,7 +113,7 @@ export default function Home ({ navigation }: any) {
         </Select>
       </HStack>
       <Divider></Divider>
-      <Center>
+      <Center marginBottom="50px">
         <FlatList
           data={Categories}
           numColumns={3}
@@ -146,15 +149,14 @@ export default function Home ({ navigation }: any) {
                       ],
                     }}
                   >
-                    <View>
-                      <Icon
-                        path={item.icone}
-                        title="Dog"
-                        color="#dd0"
-                        size={2}
-                      />
-                    </View>
-
+                    <Icon
+                      as={SimpleLineIcons}
+                      name="graduation"
+                      color="coolGray.800"
+                      _dark={{
+                        color: "warmGray.50",
+                      }}
+                    />
                     <Text
                       bold
                       fontSize="xs"

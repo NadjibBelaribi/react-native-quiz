@@ -1,6 +1,5 @@
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import {
+ import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
@@ -90,9 +89,9 @@ function CustomDrawerContent(props) {
     </DrawerContentScrollView>
   );
 }
-export default function MyDrawer() {
+export default function Welcome() {
   return (
-    <Box safeArea flex={1}>
+    <Box flex={1}>
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
@@ -102,4 +101,3 @@ export default function MyDrawer() {
     </Box>
   );
 }
-
