@@ -12,11 +12,13 @@ import {
   Select,
   HStack,
   CheckIcon,
+  Icon,
+  FormControl,
 } from "native-base";
-import Icon from "@mdi/react";
-import { Categories } from "../utils.js";
+import { SimpleLineIcons } from "@expo/vector-icons";
+import { Categories } from "../utils";
 
-export default function ({ navigation }: any) {
+export default function Home({ navigation }: any) {
   const [level, setLevel] = useState("easy");
   const [amount, setAmount] = useState(5);
   return (
@@ -38,7 +40,6 @@ export default function ({ navigation }: any) {
           <Select.Item label="Medium" value="medium" />
           <Select.Item label="Hard" value="hard" />
         </Select>
-
         <Select
           selectedValue={amount.toString()}
           minWidth="200"
@@ -58,7 +59,7 @@ export default function ({ navigation }: any) {
         </Select>
       </HStack>
       <Divider></Divider>
-      <Center>
+      <Center marginBottom="50px">
         <FlatList
           data={Categories}
           numColumns={3}
@@ -94,8 +95,14 @@ export default function ({ navigation }: any) {
                       ],
                     }}
                   >
-                    <Icon path={item.icone} title="Dog" color="#dd0" size={2} />
-
+                    <Icon
+                      as={SimpleLineIcons}
+                      name={item.icone}
+                      color="coolGray.800"
+                      _dark={{
+                        color: "warmGray.50",
+                      }}
+                    />
                     <Text
                       bold
                       fontSize="xs"

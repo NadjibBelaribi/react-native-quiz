@@ -1,19 +1,9 @@
 import React, { useEffect } from "react";
 import { Button, View, Center, Text, CircularProgress } from "native-base";
-import { fontSize } from "styled-system";
 
 export default function ({ navigation, route }: any) {
-  //useEffect(
-  //  () =>
-  //    navigation.addListener("beforeRemove", (e) => {
-  //      // Prevent default behavior of leaving the screen
-  //      // e.preventDefault();
-  //    }),
-  //    [navigation]
-  //    );
-
   const goHome = () => {
-    navigation.navigate("Home");
+    navigation.navigate("Welcome");
   };
 
   return (
@@ -25,7 +15,7 @@ export default function ({ navigation, route }: any) {
           size={150}
           color="red.900"
           thickness={10}
-          _text={{ color: "green.900", fontSize: "30px"}}
+          _text={{ color: "green.900", fontSize: "30px" }}
         >
           {`${route.params.score} / ${route.params.length}`}
         </CircularProgress>
