@@ -14,6 +14,7 @@ import {
   CheckIcon,
   Icon,
   FormControl,
+  useColorModeValue,
 } from "native-base";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Categories } from "../utils";
@@ -22,11 +23,16 @@ export default function Home({ navigation }: any) {
   const [level, setLevel] = useState("easy");
   const [amount, setAmount] = useState(5);
   return (
-    <Center flex={1} px="3">
-      <HStack marginTop="50px">
+    <Center
+      flex={1}
+      px="3"
+      _dark={{ bg: "coolGray.800" }}
+      _light={{ bg: "warmGray.50" }}
+    >
+      <HStack marginTop="50px" marginBottom="5px">
         <Select
           selectedValue={level}
-          minWidth="200"
+          minWidth="50%"
           accessibilityLabel="Choose Difficulty"
           placeholder="Choose Difficulty"
           _selectedItem={{
@@ -42,7 +48,7 @@ export default function Home({ navigation }: any) {
         </Select>
         <Select
           selectedValue={amount.toString()}
-          minWidth="200"
+          minWidth="50%"
           accessibilityLabel="Number of questions"
           placeholder="Number of questions"
           _selectedItem={{
@@ -58,7 +64,7 @@ export default function Home({ navigation }: any) {
           <Select.Item label="20" value="20" />
         </Select>
       </HStack>
-      <Divider></Divider>
+      <Divider thickness="4"></Divider>
       <Center marginBottom="50px">
         <FlatList
           data={Categories}
@@ -84,7 +90,7 @@ export default function Home({ navigation }: any) {
                         ? "gray.400"
                         : isHovered
                         ? "gray.300"
-                        : "gray.100"
+                        : "warmGray.50"
                     }
                     p="5"
                     rounded="8"
