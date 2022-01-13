@@ -73,6 +73,7 @@ export default function Home({ navigation }: any) {
                   difficulty: level,
                 })
               }
+              key={item}
             >
               {({ isHovered, isFocused, isPressed }) => {
                 return (
@@ -117,7 +118,7 @@ export default function Home({ navigation }: any) {
               }}
             </Pressable>
           )}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.name}
         />
       </Center>
     </Center>

@@ -1,5 +1,5 @@
 import * as React from "react";
- import {
+import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
@@ -14,6 +14,7 @@ import {
   HamburgerIcon,
   Pressable,
   Heading,
+  View,
   VStack,
   Text,
   Center,
@@ -22,7 +23,9 @@ import {
   Icon,
 } from "native-base";
 const Drawer = createDrawerNavigator();
-function Component(props) {
+
+
+function AboutUs(props) {
   return (
     <Center>
       <Text mt="12" fontSize="18">
@@ -32,11 +35,11 @@ function Component(props) {
   );
 }
 
-const getIcon = (screenName) => {
+const getIcon = (screenName: string) => {
   return "email";
 };
 
-function CustomDrawerContent(props) {
+function ToggleBar(props: any) {
   return (
     <DrawerContentScrollView {...props} safeArea>
       <VStack space="6" my="2" mx="1">
@@ -51,38 +54,39 @@ function CustomDrawerContent(props) {
         <VStack divider={<Divider />} space="4">
           <VStack space="3">
             {props.state.routeNames.map((name, index) => (
-              <Pressable
-                px="5"
-                py="3"
-                rounded="md"
-                bg={
-                  index === props.state.index
-                    ? "rgba(6, 182, 212, 0.1)"
-                    : "transparent"
-                }
-                onPress={(event) => {
-                  props.navigation.navigate(name);
-                }}
-              >
-                <HStack space="7" alignItems="center">
-                  <Icon
-                    color={
-                      index === props.state.index ? "primary.500" : "gray.500"
-                    }
-                    size="5"
-                    as={<MaterialCommunityIcons name={getIcon(name)} />}
-                  />
-                  <Text
-                    fontWeight="500"
-                    color={
-                      index === props.state.index ? "primary.500" : "gray.700"
-                    }
-                  >
-                    {name}
-                  </Text>
-                </HStack>
-              </Pressable>
-            ))}
+                 <Pressable
+                  px="5" 
+                  py="3"
+                  key={index}
+                  rounded="md"
+                  bg={
+                    index === props.state.index
+                      ? "rgba(6, 182, 212, 0.1)"
+                      : "transparent"
+                  }
+                  onPress={(event) => {
+                    props.navigation.navigate(name);
+                  }}
+                >
+                  <HStack space="7" alignItems="center">
+                    <Icon
+                      color={
+                        index === props.state.index ? "primary.500" : "gray.500"
+                      }
+                      size="5"
+                      as={<MaterialCommunityIcons name={getIcon(name)} />}
+                    />
+                    <Text
+                      fontWeight="500"
+                      color={
+                        index === props.state.index ? "primary.500" : "gray.700"
+                      }
+                    >
+                      {name}
+                    </Text>
+                  </HStack>
+                </Pressable>
+             ))}
           </VStack>
         </VStack>
       </VStack>
@@ -92,11 +96,9 @@ function CustomDrawerContent(props) {
 export default function Welcome() {
   return (
     <Box flex={1}>
-      <Drawer.Navigator
-        drawerContent={(props) => <CustomDrawerContent {...props} />}
-      >
+      <Drawer.Navigator drawerContent={(props) => <ToggleBar {...props} />}>
         <Drawer.Screen name="Quiz" component={Home} />
-        <Drawer.Screen name="About" component={Component} />
+        <Drawer.Screen name="About" component={AboutUs} />
       </Drawer.Navigator>
     </Box>
   );
