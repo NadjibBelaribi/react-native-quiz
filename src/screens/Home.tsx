@@ -45,30 +45,30 @@ import {
 import { SimpleLineIcons } from "@expo/vector-icons";
 
 const Categories = [
-  { name: "General Knowledge", id: "9", icone: mdiFilm },
-  { name: "Books", id: "10", icone: mdiBookOpenPageVariant },
-  { name: "Film", id: "11", icone: mdiFilm },
-  { name: "Music", id: "12", icone: mdiMusicNoteEighth },
-  { name: "Theatres", id: "13", icone: mdiTheater },
-  { name: "Television", id: "14", icone: mdiTelevision },
-  { name: "Video Games", id: "15", icone: mdiControllerClassic },
-  { name: "Board Games", id: "16", icone: mdiCrowd },
-  { name: "Science & Nature", id: "17", icone: mdiNaturePeople },
-  { name: "Computers", id: "18", icone: mdiDesktopClassic },
-  { name: "Mathematic", id: "19", icone: mdiMathCos },
+  { name: "General Knowledge", id: "9", icone: "graduation" },
+  { name: "Books", id: "10", icone: "book-open" },
+  { name: "Film", id: "11", icone: "film" },
+  { name: "Music", id: "12", icone: "music-tone-alt" },
+  { name: "Theatres", id: "13", icone: "puzzle" },
+  { name: "Television", id: "14", icone: "social-youtube" },
+  { name: "Video Games", id: "15", icone: "game-controller" },
+  { name: "Board Games", id: "16", icone: "paper-plane" },
+  { name: "Science & Nature", id: "17", icone: "chemistry" },
+  { name: "Computers", id: "18", icone: "screen-tablet" },
+  { name: "Mathematic", id: "19", icone: "chart" },
   { name: "Mythology", id: "20", icone: mdiUfo },
-  { name: "Sports", id: "21", icone: mdiBasketball },
-  { name: "Geography", id: "22", icone: mdiEarth },
-  { name: "History", id: "23", icone: mdiHistory },
-  { name: "Politics", id: "24", icone: mdiGreenhouse },
-  { name: "Art", id: "25", icone: mdiBrush },
-  { name: "Celebrities", id: "26", icone: mdiAccountStar },
-  { name: "Animals", id: "27", icone: mdiPaw },
-  { name: "Japanese Anime & Manga", id: "31", icone: mdiIdeogramCjk },
-  { name: "Vehicles", id: "28", icone: mdiCarEstate },
-  { name: "Comics", id: "29", icone: mdiRedhat },
-  { name: "Gadgets", id: "30", icone: mdiHammerScrewdriver },
-  { name: "Cartoon", id: "32", icone: mdiPanda },
+  { name: "Sports", id: "21", icone: "social-dribbble" },
+  { name: "Geography", id: "22", icone: "globe-alt" },
+  { name: "History", id: "23", icone: "shield" },
+  { name: "Politics", id: "24", icone: "ghost" },
+  { name: "Art", id: "25", icone: "magic-wand" },
+  { name: "Celebrities", id: "26", icone: "star" },
+  { name: "Animals", id: "27", icone: "symbol-male" },
+  { name: "Japanese Anime & Manga", id: "31", icone: "rocket" },
+  { name: "Vehicles", id: "28", icone: "social-steam" },
+  { name: "Comics", id: "29", icone: "social-reddit" },
+  { name: "Gadgets", id: "30", icone: "umbrella" },
+  { name: "Cartoon", id: "32", icone: "social-github" },
 ];
 
 export default function Home({ navigation }: any) {
@@ -151,7 +151,7 @@ export default function Home({ navigation }: any) {
                   >
                     <Icon
                       as={SimpleLineIcons}
-                      name="graduation"
+                      name={item.icone}
                       color="coolGray.800"
                       _dark={{
                         color: "warmGray.50",

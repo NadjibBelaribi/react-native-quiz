@@ -45,7 +45,7 @@ function CustomDrawerContent(props) {
             Mail
           </Text>
           <Text fontSize="14" mt="1" color="gray.500" fontWeight="500">
-            john_doe@gmail.com
+            nadjib4belaribi@gmail.com
           </Text>
         </Box>
         <VStack divider={<Divider />} space="4">
