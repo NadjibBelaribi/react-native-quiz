@@ -13,63 +13,10 @@ import {
   HStack,
   CheckIcon,
   Icon,
+  FormControl,
 } from "native-base";
-
-import {
-  mdiBookOpenPageVariant,
-  mdiSchool,
-  mdiFilm,
-  mdiMusicNoteEighth,
-  mdiTheater,
-  mdiTelevision,
-  mdiControllerClassic,
-  mdiCrowd,
-  mdiNaturePeople,
-  mdiDesktopClassic,
-  mdiMathCos,
-  mdiUfo,
-  mdiBasketball,
-  mdiEarth,
-  mdiHistory,
-  mdiGreenhouse,
-  mdiBrush,
-  mdiAccountStar,
-  mdiPaw,
-  mdiIdeogramCjk,
-  mdiCarEstate,
-  mdiRedhat,
-  mdiHammerScrewdriver,
-  mdiPanda,
-} from "@mdi/js";
-
 import { SimpleLineIcons } from "@expo/vector-icons";
-
-const Categories = [
-  { name: "General Knowledge", id: "9", icone: "graduation" },
-  { name: "Books", id: "10", icone: "book-open" },
-  { name: "Film", id: "11", icone: "film" },
-  { name: "Music", id: "12", icone: "music-tone-alt" },
-  { name: "Theatres", id: "13", icone: "puzzle" },
-  { name: "Television", id: "14", icone: "social-youtube" },
-  { name: "Video Games", id: "15", icone: "game-controller" },
-  { name: "Board Games", id: "16", icone: "paper-plane" },
-  { name: "Science & Nature", id: "17", icone: "chemistry" },
-  { name: "Computers", id: "18", icone: "screen-tablet" },
-  { name: "Mathematic", id: "19", icone: "chart" },
-  { name: "Mythology", id: "20", icone: mdiUfo },
-  { name: "Sports", id: "21", icone: "social-dribbble" },
-  { name: "Geography", id: "22", icone: "globe-alt" },
-  { name: "History", id: "23", icone: "shield" },
-  { name: "Politics", id: "24", icone: "ghost" },
-  { name: "Art", id: "25", icone: "magic-wand" },
-  { name: "Celebrities", id: "26", icone: "star" },
-  { name: "Animals", id: "27", icone: "symbol-male" },
-  { name: "Japanese Anime & Manga", id: "31", icone: "rocket" },
-  { name: "Vehicles", id: "28", icone: "social-steam" },
-  { name: "Comics", id: "29", icone: "social-reddit" },
-  { name: "Gadgets", id: "30", icone: "umbrella" },
-  { name: "Cartoon", id: "32", icone: "social-github" },
-];
+import { Categories } from "../utils";
 
 export default function Home({ navigation }: any) {
   const [level, setLevel] = useState("easy");
@@ -93,7 +40,6 @@ export default function Home({ navigation }: any) {
           <Select.Item label="Medium" value="medium" />
           <Select.Item label="Hard" value="hard" />
         </Select>
-
         <Select
           selectedValue={amount.toString()}
           minWidth="200"
