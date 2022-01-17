@@ -37,7 +37,7 @@ function AboutUs(props) {
 }
 
 const getIcon = (screenName: string) => {
-  return "email";
+  return "tag";
 };
 
 function ToggleBar(props: any) {

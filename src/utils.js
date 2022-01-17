@@ -24,3 +24,12 @@ export let  Categories = [
   { name: "Gadgets", id: "30", icone: "umbrella" },
   { name: "Cartoon", id: "32", icone: "social-github" },
 ];
+
+export function escapeHtml(text) {
+  return text
+    .replace(/&amp;/gi, "&")
+    .replace(/&gt;/gi, ">")
+    .replace(/&lt;/gi, "<")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#039;/gi, "'");
+}

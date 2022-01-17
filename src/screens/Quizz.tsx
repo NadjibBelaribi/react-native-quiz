@@ -12,18 +12,12 @@ import {
 } from "native-base";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { Animated } from "react-native";
-
-function escapeHtml(text: String) {
-  return text
-    .replace(/&amp;/gi, "&")
-    .replace(/&gt;/gi, ">")
-    .replace(/&lt;/gi, "<")
-    .replace(/&quot;/gi, '"')
-    .replace(/&#039;/gi, "'");
-}
+import { escapeHtml } from "../utils";
 
 export default function ({ navigation, route }: any) {
-  const [questionsLength, setQuestionsLength] = useState(route.params.limit);
+  const [questionsLength, setQuestionsLength] = useState<number>(
+    route.params.limit
+  );
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showNextQuestion, setShowNextQuestion] = useState(false);
   const [score, setScore] = useState(0);
@@ -90,7 +84,7 @@ export default function ({ navigation, route }: any) {
   const renderQuestion = () => {
     return (
       <HStack marginTop="20px">
-        <Center flex={1} px="3">
+        <Center flex={1} px="3" >
           <CountdownCircleTimer
             isPlaying={!expireTimer}
             onComplete={() => {
@@ -199,11 +193,23 @@ export default function ({ navigation, route }: any) {
     );
   };
 
+  const renderNothing = () => {
+    return (
+      <>
+        <HStack>
+          <Center flex={1} px="3">
+            <Text>No questions Frere </Text>
+          </Center>
+        </HStack>
+      </>
+    );
+  };
   return (
     <View>
-      {isUp && renderQuestion()}
-      {isUp && renderOptions()}
-      {isUp && renderNextQuestion()}
+      {isUp && questionsLength == 0 && renderNothing()}
+      {isUp && questionsLength != 0 && renderQuestion()}
+      {isUp && questionsLength != 0 && renderOptions()}
+      {isUp && questionsLength != 0 && renderNextQuestion()}
     </View>
   );
 }
