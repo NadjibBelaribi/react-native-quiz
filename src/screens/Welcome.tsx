@@ -17,24 +17,23 @@ import {
   Heading,
   View,
   Select,
+  FormControl,
+  Input,
   VStack,
   Text,
   Center,
   HStack,
   Divider,
   Icon,
+  Stack,
+  Image,
+  AspectRatio,
 } from "native-base";
-const Drawer = createDrawerNavigator();
 
-function AboutUs(props) {
-  return (
-    <Center>
-      <Text mt="12" fontSize="18">
-        This is {props.route.name} page.
-      </Text>
-    </Center>
-  );
-}
+import Settings from "./Settings";
+import AboutUs from "./AboutUs";
+
+const Drawer = createDrawerNavigator();
 
 const getIcon = (screenName: string) => {
   return "tag";
@@ -46,10 +45,10 @@ function ToggleBar(props: any) {
       <VStack space="6" my="2" mx="1">
         <Box px="4">
           <Text bold color="gray.700">
-            Mail
+            Quizz !
           </Text>
           <Text fontSize="14" mt="1" color="gray.500" fontWeight="500">
-            nadjib4belaribi@gmail.com
+            How smart you really are ?
           </Text>
         </Box>
         <VStack divider={<Divider />} space="4">
@@ -99,6 +98,7 @@ export default function Welcome() {
     <Box flex={1}>
       <Drawer.Navigator drawerContent={(props) => <ToggleBar {...props} />}>
         <Drawer.Screen name="Quiz" component={Home} />
+        <Drawer.Screen name="Settings" component={Settings} />
         <Drawer.Screen name="About" component={AboutUs} />
       </Drawer.Navigator>
     </Box>

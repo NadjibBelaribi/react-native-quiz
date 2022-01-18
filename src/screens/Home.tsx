@@ -113,7 +113,7 @@ export default function Home({ navigation }: any) {
                   <Icon
                     as={SimpleLineIcons}
                     name={item.icone}
-                    color="coolGray.800"
+                    color="primary.500"
                     _dark={{
                       color: "warmGray.50",
                     }}
