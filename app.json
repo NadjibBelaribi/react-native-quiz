@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "devQuizz",
-    "slug": "devQuizz",
+    "name": "Quizz",
+    "slug": "Quizz",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
