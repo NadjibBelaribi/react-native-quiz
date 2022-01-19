@@ -71,12 +71,14 @@ export default function Settings(props: any) {
 
   return (
     <Center>
-      <Text mt="12" fontSize="18">
-        This is {props.route.name} page.
-      </Text>
-      <VStack width="90%" mx="3">
+      <Heading mt="12" fontSize="24" marginBottom="20px" italic>
+        What do you prefer ?
+      </Heading>
+      <VStack width="90%" mx="3" space={10}>
         <FormControl>
-          <FormControl.Label _text={{ bold: true }}>Level</FormControl.Label>
+          <FormControl.Label _text={{ bold: true, fontSize: "xl" }}>
+            Level
+          </FormControl.Label>
           <Select
             selectedValue={level}
             minWidth="80%"
@@ -95,7 +97,7 @@ export default function Settings(props: any) {
         </FormControl>
 
         <FormControl>
-          <FormControl.Label _text={{ bold: true }}>
+          <FormControl.Label _text={{ bold: true, fontSize: "xl" }}>
             Number of questions
           </FormControl.Label>
           <Select
@@ -108,8 +110,8 @@ export default function Settings(props: any) {
             }}
             onValueChange={(itemValue) => storeAmount(parseInt(itemValue))}
           >
-            <Select.Item label="5 questions " value="5" />
-            <Select.Item label="10 questions " value="10" />
+            <Select.Item label="5 " value="5" />
+            <Select.Item label="10 " value="10" />
           </Select>
         </FormControl>
       </VStack>

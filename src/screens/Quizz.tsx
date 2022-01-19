@@ -32,16 +32,16 @@ export default function ({ navigation, route }: any) {
   const [isUp, setisUp] = useState(false);
   const [expireTimer, setExpireTimer] = useState(false);
   const [key, setKey] = useState(0);
+  const [level, setLevel] = useState("easy");
 
   const getQuestions = async () => {
     try {
       const amount = await AsyncStorage.getItem("amount");
       const level = await AsyncStorage.getItem("level");
-
+      setLevel(JSON.parse(level));
       let url = `https://opentdb.com/api.php?amount=${amount}&category=${
         route.params.category
       }&difficulty=${JSON.parse(level)}&type=multiple`;
-      console.log(url);
       const response = await fetch(url);
       let quests = await response.json();
       quests = quests.results;
@@ -94,6 +94,40 @@ export default function ({ navigation, route }: any) {
     return (
       <HStack marginTop="20px">
         <Center flex={1} px="3">
+          <Box
+            width="100%"
+            bg="primary.50"
+            borderWidth="4px"
+            borderRadius="4px"
+            borderColor="green.200"
+            _text={{
+              fontSize: "md",
+              fontWeight: "medium",
+              color: "warmGray.50",
+              letterSpacing: "lg",
+            }}
+            marginBottom="20px"
+          >
+            <Text bold italic fontSize="md" marginTop="5px" textAlign="center">
+              {route.params.name}
+            </Text>
+            <Text bold italic fontSize="md" marginTop="5px" textAlign="center">
+              mode : {level}
+            </Text>
+            <Text
+              bold
+              italic 
+              fontSize="md"
+              marginTop="5px"
+              textAlign="center"
+            >progress : {`${currentQuestionIndex} / ${questionsLength}`}</Text>
+            <Progress
+              value={(currentQuestionIndex * 100) / questionsLength}
+              mx="4"
+              size="md"
+              marginTop="20px"
+            />{" "}
+          </Box>
           <CountdownCircleTimer
             isPlaying={!expireTimer}
             onComplete={() => {
@@ -117,6 +151,7 @@ export default function ({ navigation, route }: any) {
             w="80%"
             marginTop="20px"
             justifyContent="center"
+            italic
           >
             {escapeHtml(questions[currentQuestionIndex].question)}
           </Heading>
@@ -184,20 +219,6 @@ export default function ({ navigation, route }: any) {
             </Button>
           </Center>
         </HStack>
-        <Box marginTop="10px">
-          <Text
-            bold
-            fontSize="md"
-            marginTop="5px"
-            textAlign="center"
-          >{`${currentQuestionIndex} / ${questionsLength}`}</Text>
-          <Progress
-            value={(currentQuestionIndex * 100) / questionsLength}
-            mx="4"
-            size="md"
-            marginTop="20px"
-          />
-        </Box>
       </>
     );
   };
@@ -229,20 +250,21 @@ export default function ({ navigation, route }: any) {
         <Stack p="4" space={3}>
           <Stack space={2}>
             <Heading size="md" ml="-1">
-              Unsifficient API data 
+              Unsifficient API data
             </Heading>
           </Stack>
           <Text fontWeight="400">
-            There is not enough of questions in TriviaDB for this category, please try to change the amount of questions or the category.
+            There is not enough of questions in TriviaDB for this category
+          </Text>
+
+          <Text fontWeight="400">
+            Please try to change the number of questions or the category.
           </Text>
         </Stack>
-        <Center flex={1} px="3">
+        <Center>
           <Button
             onPress={goHome}
             borderBottomWidth="1"
-            _dark={{
-              borderColor: "red.600",
-            }}
             marginTop="20px"
             borderColor="coolGray.200"
             pl="4"

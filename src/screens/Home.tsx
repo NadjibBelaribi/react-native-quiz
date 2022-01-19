@@ -1,33 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  View,
-  Pressable,
-  Image,
-  Divider,
-  Box,
-  Text,
-  FlatList,
-  Select,
-  HStack,
-  CheckIcon,
-  Icon,
-  FormControl,
-  useColorModeValue,
-  Center,
-} from "native-base";
+import { Pressable, Box, Text, FlatList, Icon, Center } from "native-base";
 import { SimpleLineIcons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Categories } from "../utils";
 
 export default function Home({ navigation }: any) {
   return (
-    <Center
-      flex={1}
-      px="3"
-      _dark={{ bg: "coolGray.800" }}
-      _light={{ bg: "warmGray.50" }}
-    >
+    <Center flex={1} px="3" _light={{ bg: "warmGray.50" }}>
       <FlatList
         data={Categories}
         numColumns={3}
@@ -72,6 +50,7 @@ export default function Home({ navigation }: any) {
                   />
                   <Text
                     bold
+                    italic
                     fontSize="xs"
                     marginTop="15px"
                     width="80px"

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, View, Center, Text, CircularProgress } from "native-base";
+import { Button, View, Center, Heading, CircularProgress } from "native-base";
 
 export default function ({ navigation, route }: any) {
   const goHome = () => {
@@ -9,11 +9,16 @@ export default function ({ navigation, route }: any) {
   return (
     <Center flex={1} px="3">
       <View>
+        <Heading>
+          Your score is : 
+        </Heading>
         <CircularProgress
+          marginBottom="20px"
+          marginTop="20px"
           mt={8}
           value={(route.params.score / route.params.length) * 100}
           size={150}
-          color="red.900"
+          color="green.500"
           thickness={10}
           _text={{ color: "green.900", fontSize: "30px" }}
         >

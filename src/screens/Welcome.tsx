@@ -3,7 +3,7 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { SimpleLineIcons } from "@expo/vector-icons";
 
 import Home from "./Home";
 
@@ -36,7 +36,16 @@ import AboutUs from "./AboutUs";
 const Drawer = createDrawerNavigator();
 
 const getIcon = (screenName: string) => {
-  return "tag";
+  switch (screenName) {
+    case "Quiz":
+      return "home";
+    case "Settings":
+      return "settings";
+    case "About":
+      return "support";
+    default:
+      return "tag";
+    }
 };
 
 function ToggleBar(props: any) {
@@ -74,7 +83,7 @@ function ToggleBar(props: any) {
                       index === props.state.index ? "primary.500" : "gray.500"
                     }
                     size="5"
-                    as={<MaterialCommunityIcons name={getIcon(name)} />}
+                    as={<SimpleLineIcons name={getIcon(name)} />}
                   />
                   <Text
                     fontWeight="500"
