@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   NativeBaseProvider,
@@ -22,34 +22,97 @@ import {
   Image,
   AspectRatio,
 } from "native-base";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Settings(props: any) {
-    return (
-      <Center>
-        <Text mt="12" fontSize="18">
-          This is {props.route.name} page.
-        </Text>
-        <VStack width="90%" mx="3">
-          <FormControl>
-            <FormControl.Label _text={{ bold: true }}>Level</FormControl.Label>
-            <Input
-              placeholder="easy"
-              //   onChangeText={(value) => setData({ ...formData, name: value })}
-            />
-          </FormControl>
-  
-          <FormControl>
-            <FormControl.Label _text={{ bold: true }}>NUmber of questions</FormControl.Label>
-            <Input
-              placeholder="5"
-              //   onChangeText={(value) => setData({ ...formData, name: value })}
-            />
-          </FormControl>
-  
-          <Button /*onPress={} */ mt="5" colorScheme="cyan">
-            Submit
-          </Button>
-        </VStack>
-      </Center>
-    );
-  }
+  const [amount, setAmount] = useState("");
+  const [level, setLevel] = useState("");
+
+  const storeLevel = async (lev: string) => {
+    try {
+      setLevel(lev);
+      const levelJson = JSON.stringify(lev);
+      await AsyncStorage.setItem("level", levelJson);
+    } catch (e) {
+      // saving error
+    }
+  };
+
+  const storeAmount = async (lim: number) => {
+    try {
+      setAmount(lim.toString());
+      const amountJson = JSON.stringify(lim);
+      await AsyncStorage.setItem("amount", amountJson);
+    } catch (e) {
+      // saving error
+    }
+  };
+
+  const getLevel = async () => {
+    try {
+      const value = await AsyncStorage.getItem("level");
+      setLevel(JSON.parse(value));
+      return value;
+    } catch (e) {}
+  };
+  const getAmount = async () => {
+    try {
+      const value = await AsyncStorage.getItem("amount");
+      setAmount(value);
+
+      return value;
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    getLevel();
+    getAmount();
+  }, []);
+
+  return (
+    <Center>
+      <Text mt="12" fontSize="18">
+        This is {props.route.name} page.
+      </Text>
+      <VStack width="90%" mx="3">
+        <FormControl>
+          <FormControl.Label _text={{ bold: true }}>Level</FormControl.Label>
+          <Select
+            selectedValue={level}
+            minWidth="80%"
+            placeholder="Choose Difficulty"
+            _selectedItem={{
+              bg: "teal.600",
+              endIcon: <CheckIcon size="5" />,
+            }}
+            onValueChange={(itemValue) => storeLevel(itemValue)}
+            mt={3}
+          >
+            <Select.Item label="Easy" value="easy" />
+            <Select.Item label="Medium" value="medium" />
+            <Select.Item label="Hard" value="hard" />
+          </Select>
+        </FormControl>
+
+        <FormControl>
+          <FormControl.Label _text={{ bold: true }}>
+            Number of questions
+          </FormControl.Label>
+          <Select
+            selectedValue={amount}
+            minWidth="80%"
+            placeholder="Number of questions"
+            _selectedItem={{
+              bg: "teal.600",
+              endIcon: <CheckIcon size="5" />,
+            }}
+            onValueChange={(itemValue) => storeAmount(parseInt(itemValue))}
+          >
+            <Select.Item label="5 questions " value="5" />
+            <Select.Item label="10 questions " value="10" />
+          </Select>
+        </FormControl>
+      </VStack>
+    </Center>
+  );
+}

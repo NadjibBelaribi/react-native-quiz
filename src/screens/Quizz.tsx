@@ -9,10 +9,14 @@ import {
   Heading,
   Button,
   HStack,
+  Stack,
+  Image,
+  AspectRatio,
 } from "native-base";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { Animated } from "react-native";
 import { escapeHtml } from "../utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ({ navigation, route }: any) {
   const [questionsLength, setQuestionsLength] = useState<number>(
@@ -31,7 +35,12 @@ export default function ({ navigation, route }: any) {
 
   const getQuestions = async () => {
     try {
-      let url = `https://opentdb.com/api.php?amount=${route.params.limit}&category=${route.params.category}&difficulty=${route.params.difficulty}&type=multiple`;
+      const amount = await AsyncStorage.getItem("amount");
+      const level = await AsyncStorage.getItem("level");
+
+      let url = `https://opentdb.com/api.php?amount=${amount}&category=${
+        route.params.category
+      }&difficulty=${JSON.parse(level)}&type=multiple`;
       console.log(url);
       const response = await fetch(url);
       let quests = await response.json();
@@ -84,7 +93,7 @@ export default function ({ navigation, route }: any) {
   const renderQuestion = () => {
     return (
       <HStack marginTop="20px">
-        <Center flex={1} px="3" >
+        <Center flex={1} px="3">
           <CountdownCircleTimer
             isPlaying={!expireTimer}
             onComplete={() => {
@@ -193,15 +202,57 @@ export default function ({ navigation, route }: any) {
     );
   };
 
+  const goHome = () => {
+    navigation.navigate("Welcome");
+  };
+
   const renderNothing = () => {
     return (
-      <>
-        <HStack>
-          <Center flex={1} px="3">
-            <Text>No questions Frere </Text>
-          </Center>
-        </HStack>
-      </>
+      <Box
+        maxW="100%"
+        rounded="lg"
+        overflow="hidden"
+        borderColor="coolGray.200"
+        marginTop="50px"
+        borderWidth="1"
+      >
+        <Box>
+          <AspectRatio w="100%" ratio={16 / 9}>
+            <Image
+              source={{
+                uri: "http://2.bp.blogspot.com/-QBBsMBV1Ofw/TtPIj2iz0cI/AAAAAAAADVI/jM9hzf_jjvo/s1600/HomerSimpson50%255B1%255D.gif",
+              }}
+              alt="image"
+            />
+          </AspectRatio>
+        </Box>
+        <Stack p="4" space={3}>
+          <Stack space={2}>
+            <Heading size="md" ml="-1">
+              Unsifficient API data 
+            </Heading>
+          </Stack>
+          <Text fontWeight="400">
+            There is not enough of questions in TriviaDB for this category, please try to change the amount of questions or the category.
+          </Text>
+        </Stack>
+        <Center flex={1} px="3">
+          <Button
+            onPress={goHome}
+            borderBottomWidth="1"
+            _dark={{
+              borderColor: "red.600",
+            }}
+            marginTop="20px"
+            borderColor="coolGray.200"
+            pl="4"
+            pr="5"
+            py="2"
+          >
+            Go Back
+          </Button>
+        </Center>
+      </Box>
     );
   };
   return (
