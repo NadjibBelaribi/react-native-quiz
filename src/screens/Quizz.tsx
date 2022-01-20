@@ -238,14 +238,14 @@ export default function ({ navigation, route }: any) {
         borderWidth="1"
       >
         <Box>
-          <AspectRatio w="100%" ratio={16 / 9}>
-            <Image
-              source={{
-                uri: "http://2.bp.blogspot.com/-QBBsMBV1Ofw/TtPIj2iz0cI/AAAAAAAADVI/jM9hzf_jjvo/s1600/HomerSimpson50%255B1%255D.gif",
-              }}
-              alt="image"
-            />
-          </AspectRatio>
+        <AspectRatio w="100%" ratio={16 / 9} >
+          <Image
+            source={require("../../assets/simpson.jpg")}
+            alt="image"
+            size={200}
+            width="100%"
+          />
+        </AspectRatio>
         </Box>
         <Stack p="4" space={3}>
           <Stack space={2}>
