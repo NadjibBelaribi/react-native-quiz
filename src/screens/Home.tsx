@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Pressable, Box, Text, FlatList, Icon, Center } from "native-base";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Categories } from "../utils";

@@ -1,37 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
 import { SimpleLineIcons } from "@expo/vector-icons";
-
 import Home from "./Home";
-
+import Settings from "./Settings";
+import AboutUs from "./AboutUs";
 import {
-  NativeBaseProvider,
-  Button,
   Box,
-  CheckIcon,
-  HamburgerIcon,
   Pressable,
-  Heading,
-  View,
-  Select,
-  FormControl,
-  Input,
   VStack,
   Text,
-  Center,
   HStack,
   Divider,
   Icon,
-  Stack,
-  Image,
-  AspectRatio,
 } from "native-base";
-
-import Settings from "./Settings";
-import AboutUs from "./AboutUs";
 
 const Drawer = createDrawerNavigator();
 
@@ -45,7 +29,7 @@ const getIcon = (screenName: string) => {
       return "support";
     default:
       return "tag";
-    }
+  }
 };
 
 function ToggleBar(props: any) {

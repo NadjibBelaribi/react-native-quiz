@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, View, Center, Heading, CircularProgress } from "native-base";
 
 export default function ({ navigation, route }: any) {
@@ -9,9 +9,7 @@ export default function ({ navigation, route }: any) {
   return (
     <Center flex={1} px="3">
       <View>
-        <Heading>
-          Your score is : 
-        </Heading>
+        <Heading>Your score is :</Heading>
         <CircularProgress
           marginBottom="20px"
           marginTop="20px"

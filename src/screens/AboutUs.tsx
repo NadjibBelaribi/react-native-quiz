@@ -1,29 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
+import { Box, Heading, Text, Stack, Image, AspectRatio } from "native-base";
 
-import {
-  NativeBaseProvider,
-  Button,
-  Box,
-  CheckIcon,
-  HamburgerIcon,
-  Pressable,
-  Heading,
-  View,
-  Select,
-  FormControl,
-  Input,
-  VStack,
-  Text,
-  Center,
-  HStack,
-  Divider,
-  Icon,
-  Stack,
-  Image,
-  AspectRatio,
-} from "native-base";
-
-export default function AboutUs(props) {
+export default function AboutUs() {
   return (
     <Box
       maxW="100%"
@@ -33,7 +11,7 @@ export default function AboutUs(props) {
       borderWidth="1"
     >
       <Box>
-        <AspectRatio w="100%" ratio={16 / 9} >
+        <AspectRatio w="100%" ratio={16 / 9}>
           <Image
             source={require("../../assets/trivia.png")}
             alt="image"
@@ -45,15 +23,12 @@ export default function AboutUs(props) {
       <Stack p="4" space={3}>
         <Stack space={2}>
           <Heading size="md" ml="-1">
-            SmarDumb
+            Quizz!
           </Heading>
           <Text
             fontSize="xs"
             _light={{
               color: "violet.500",
-            }}
-            _dark={{
-              color: "violet.400",
             }}
             fontWeight="500"
             ml="-0.5"
@@ -80,7 +55,8 @@ export default function AboutUs(props) {
           questions by a free API of Open Trivia DB.
         </Text>
         <Text fontWeight="400">
-          Make sure you are connected to internet since our app uses online data.
+          Make sure you are connected to internet since our app uses online
+          data.
         </Text>
         <Text fontWeight="400">
           For any feedback or questions, please contact us on :{" "}

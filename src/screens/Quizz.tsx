@@ -9,14 +9,15 @@ import {
   Heading,
   Button,
   HStack,
-  Stack,
-  Image,
   AspectRatio,
+  Image,
+  Stack,
 } from "native-base";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { Animated } from "react-native";
 import { escapeHtml } from "../utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import config from "../../config";
 
 export default function ({ navigation, route }: any) {
   const [questionsLength, setQuestionsLength] = useState<number>(
@@ -39,7 +40,7 @@ export default function ({ navigation, route }: any) {
       const amount = await AsyncStorage.getItem("amount");
       const level = await AsyncStorage.getItem("level");
       setLevel(JSON.parse(level));
-      let url = `https://opentdb.com/api.php?amount=${amount}&category=${
+      let url = `${config.API_URL}?amount=${amount}&category=${
         route.params.category
       }&difficulty=${JSON.parse(level)}&type=multiple`;
       const response = await fetch(url);
@@ -99,7 +100,7 @@ export default function ({ navigation, route }: any) {
             bg="primary.50"
             borderWidth="4px"
             borderRadius="4px"
-            borderColor="green.200"
+            borderColor="primary.500"
             _text={{
               fontSize: "md",
               fontWeight: "medium",
@@ -114,13 +115,9 @@ export default function ({ navigation, route }: any) {
             <Text bold italic fontSize="md" marginTop="5px" textAlign="center">
               mode : {level}
             </Text>
-            <Text
-              bold
-              italic 
-              fontSize="md"
-              marginTop="5px"
-              textAlign="center"
-            >progress : {`${currentQuestionIndex} / ${questionsLength}`}</Text>
+            <Text bold italic fontSize="md" marginTop="5px" textAlign="center">
+              progress : {`${currentQuestionIndex} / ${questionsLength}`}
+            </Text>
             <Progress
               value={(currentQuestionIndex * 100) / questionsLength}
               mx="4"
@@ -238,14 +235,14 @@ export default function ({ navigation, route }: any) {
         borderWidth="1"
       >
         <Box>
-        <AspectRatio w="100%" ratio={16 / 9} >
-          <Image
-            source={require("../../assets/simpson.jpg")}
-            alt="image"
-            size={200}
-            width="100%"
-          />
-        </AspectRatio>
+          <AspectRatio w="100%" ratio={16 / 9}>
+            <Image
+              source={require("../../assets/simpson.jpg")}
+              alt="image"
+              size={200}
+              width="100%"
+            />
+          </AspectRatio>
         </Box>
         <Stack p="4" space={3}>
           <Stack space={2}>
@@ -254,7 +251,7 @@ export default function ({ navigation, route }: any) {
             </Heading>
           </Stack>
           <Text fontWeight="400">
-            There is not enough of questions in TriviaDB for this category
+            There is not enough questions in TriviaDB API for this category
           </Text>
 
           <Text fontWeight="400">
